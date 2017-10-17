@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
 
+        // Compare now with start date or last resume, if different refresh,
+        // as the webapp currently doesn't update itself at the end of the day (wip)
         Date now = new Date();
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
         if (fmt.format(this.lastRefresh).equals(fmt.format(now))) {
