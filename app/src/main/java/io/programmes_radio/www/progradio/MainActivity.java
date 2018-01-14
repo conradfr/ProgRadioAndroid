@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+        mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
         // Force links and redirects to open in the WebView instead of in a browser
         mWebView.setWebViewClient(new MyAppWebViewClient());
         mWebView.loadUrl("https://www.programmes-radio.io");
