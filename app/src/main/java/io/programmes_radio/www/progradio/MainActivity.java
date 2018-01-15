@@ -1,5 +1,6 @@
 package io.programmes_radio.www.progradio;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
 
         // Force links and redirects to open in the WebView instead of in a browser
         mWebView.setWebViewClient(new MyAppWebViewClient());
