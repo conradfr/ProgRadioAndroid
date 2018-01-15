@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
