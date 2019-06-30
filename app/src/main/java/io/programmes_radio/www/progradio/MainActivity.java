@@ -12,7 +12,6 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private WebView mWebView;
-    private Date lastRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,30 +24,24 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
 
         mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        mWebView.getSettings().setAppCacheEnabled(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
 
-        // Force links and redirects to open in the WebView instead of in a browser
         mWebView.setWebViewClient(new MyAppWebViewClient());
-        mWebView.loadUrl("https://www.programmes-radio.io");
 
-        this.lastRefresh = new Date();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-
-        // Compare now with start date or last resume, if different refresh,
-        // as the webapp currently doesn't update itself at the end of the day (wip)
-        Date now = new Date();
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        if (fmt.format(this.lastRefresh).equals(fmt.format(now))) {
-            mWebView.reload();
-            this.lastRefresh = now;
+        // Force links and redirects to open in the WebView instead of in a browser
+        if (BuildConfig.DEBUG) {
+            mWebView.getSettings().setAppCacheEnabled(false);
+            mWebView.clearCache(true);
+//            mWebView.loadUrl("http://local.programmes-radio.io:8080");
+            mWebView.loadUrl("https://www.programmes-radio.io");
+        } else {
+            mWebView.loadUrl("https://www.programmes-radio.io");
         }
     }
 
